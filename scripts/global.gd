@@ -1,6 +1,6 @@
 extends Node
 
-# SCENES
+# FOLDERS
 var save_dir
 var map_dir
 var music_dir
@@ -8,10 +8,12 @@ var music_dir
 # SETTINGS VARIABLES
 var sens: float = 0.1
 
+var exit_juice = 0 # Time counter for exiting
+
 func _ready() -> void:
 	paths()
 	fix_paths()
-
+	
 func paths() -> void:
 	if OS.has_feature("editor"): save_dir = "res://save_data"
 	else: save_dir = OS.get_executable_path().get_base_dir().path_join("save_data")
@@ -26,3 +28,13 @@ func fix_paths(): # Deepseek Code
 		dir.make_dir_recursive(map_dir)
 	if not dir.dir_exists(music_dir):
 		dir.make_dir_recursive(music_dir)
+
+func _process(delta: float) -> void:
+	check_exit(delta)
+
+func check_exit(delta):
+	if Input.is_action_pressed("esc"): exit_juice += delta
+	else: exit_juice = 0
+	if exit_juice > 0.5:
+		get_tree().change_scene_to_file("res://scenes/menu/main_menu.tscn")
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

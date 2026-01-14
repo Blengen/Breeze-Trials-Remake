@@ -1,16 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://b16x3mwm7e4h2"]
+[gd_scene load_steps=9 format=3 uid="uid://b16x3mwm7e4h2"]
 
 [ext_resource type="Script" uid="uid://7h3heuyotj4m" path="res://scripts/gameloop/gameloop.gd" id="1_cnm17"]
 [ext_resource type="AudioStream" uid="uid://bx2y80ikp0wxa" path="res://audio/hihat.mp3" id="2_3e8ec"]
 [ext_resource type="PackedScene" uid="uid://weodvb5mj5gd" path="res://scenes/ingame/player.tscn" id="3_dpktk"]
 [ext_resource type="PackedScene" uid="uid://cpda6ehi6dk37" path="res://scenes/test_map.tscn" id="5_cla3i"]
+[ext_resource type="FontFile" uid="uid://cixohe42kxmvu" path="res://themes/fonts/league_spartan_bold.ttf" id="6_5g6bt"]
+[ext_resource type="Theme" uid="uid://bvyertuunhye7" path="res://themes/main_menu.tres" id="7_p12a3"]
+[ext_resource type="Script" uid="uid://bwu04ovuy2fe3" path="res://scenes/ingame/pause.gd" id="8_e2h46"]
 [ext_resource type="AudioStream" uid="uid://btu2pr86gkymn" path="res://audio/death.mp3" id="11_s1dsy"]
 
 [node name="game" type="Node3D"]
 script = ExtResource("1_cnm17")
 
 [node name="player" parent="." instance=ExtResource("3_dpktk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -8)
 
 [node name="sfx" type="Node" parent="."]
 
@@ -38,7 +40,72 @@ value = 75.0
 transform = Transform3D(-0.032509737, 0, -0.99947137, 0, 1, 0, 0.99947137, 0, -0.032509737, 0.080440834, -4.2, -2.4986775)
 size = Vector3(38, 2, 48)
 
+[node name="pause_menu" type="Control" parent="."]
+process_mode = 2
+visible = false
+z_index = 30
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="cover" type="ColorRect" parent="pause_menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.7254902)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="pause_menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="paused" type="Label" parent="pause_menu/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7019608, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.1218, 0.20029333, 0.29, 1)
+theme_override_constants/outline_size = 50
+theme_override_fonts/font = ExtResource("6_5g6bt")
+theme_override_font_sizes/font_size = 200
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="continue" type="Button" parent="pause_menu/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("7_p12a3")
+theme_override_font_sizes/font_size = 100
+text = "Continue"
+
+[node name="settings" type="Button" parent="pause_menu/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("7_p12a3")
+theme_override_font_sizes/font_size = 100
+text = "Settings"
+
+[node name="exit" type="Button" parent="pause_menu/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("7_p12a3")
+theme_override_font_sizes/font_size = 100
+text = "Exit"
+
+[node name="pause_handler" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("8_e2h46")
+
 [connection signal="timeout" from="spawn_timer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="pressed" from="pause_menu/VBoxContainer/continue" to="pause_handler" method="_on_continue_pressed"]
 
 [editable path="player"]
 [editable path="map"]

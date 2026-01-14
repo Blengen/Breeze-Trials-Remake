@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bj6yss6l653qa"]
+[gd_scene load_steps=15 format=3 uid="uid://bj6yss6l653qa"]
 
 [ext_resource type="Texture2D" uid="uid://bra3hwb1lnjvu" path="res://images/vignette.png" id="1_3rkf3"]
 [ext_resource type="Script" uid="uid://b1flga8wtbld1" path="res://scripts/menu/menu.gd" id="1_247la"]
@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://r8sxn1yp2etk" path="res://images/difficulties/unknown.png" id="7_d4hu8"]
 [ext_resource type="Texture2D" uid="uid://bs2tavlqjv86f" path="res://images/difficulties/hard.png" id="7_p1nwe"]
 [ext_resource type="Texture2D" uid="uid://dg25ddk3nfee7" path="res://images/difficulties/legendary.png" id="8_prbor"]
+[ext_resource type="Texture2D" uid="uid://be8uy8emd62me" path="res://images/arrow_button.png" id="11_prbor"]
+[ext_resource type="Texture2D" uid="uid://coi7m0wq4xdol" path="res://images/arrow_button_pressed.png" id="12_27h4x"]
 
 [node name="menu" type="Control"]
 layout_mode = 3
@@ -361,6 +363,38 @@ theme_override_colors/font_color = Color(0.59285295, 0.8405803, 0.7143255, 1)
 theme_override_constants/outline_size = 15
 theme_override_font_sizes/font_size = 100
 text = "Back"
+
+[node name="button_left" type="TextureButton" parent="credits"]
+z_index = 10
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -64.0
+offset_right = 128.0
+offset_bottom = 64.0
+grow_vertical = 2
+texture_normal = ExtResource("11_prbor")
+texture_pressed = ExtResource("11_prbor")
+texture_hover = ExtResource("12_27h4x")
+flip_h = true
+
+[node name="button_right" type="TextureButton" parent="credits"]
+z_index = 10
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -64.0
+offset_bottom = 64.0
+grow_horizontal = 0
+grow_vertical = 2
+texture_normal = ExtResource("11_prbor")
+texture_pressed = ExtResource("11_prbor")
+texture_hover = ExtResource("12_27h4x")
 
 [node name="settings" type="TextureRect" parent="."]
 visible = false
