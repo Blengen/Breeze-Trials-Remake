@@ -7,6 +7,8 @@ extends Node3D
 @onready var spawn = $map/spawn
 @onready var settings = $map/settings
 @onready var ani = $player/body/visual/ani # Player AnimationPlayer
+@onready var death_ui = $player/ui/death_ui
+@onready var spawn_timer = $spawn_timer
 
 
 var playing = false
@@ -23,7 +25,7 @@ func restart():
 	hihat_juice = 0.5
 	hihat_count = 2
 	music.stop()
-	$spawn_timer.start()
+	spawn_timer.start()
 	
 	
 	# RESET PLAYER VARIABLES #
@@ -34,7 +36,7 @@ func restart():
 	
 	
 	playing = false
-	$player/ui/death_ui.visible = false
+	death_ui.visible = false
 	ani.play("RESET")
 	player.velocity = Vector3.ZERO
 	player.fuel = float($map/settings.fuel)
